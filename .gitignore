@@ -121,4 +121,6 @@ package-lock.json
 
 capture
 
-uploads
+uploads # 
+
+static

@@ -55,8 +55,20 @@ const routes = {
         return VIDEO_DETAIL;
       }
     },
-    editVideo: EDIT_VIDEO,
-    deleteVideo: DELETE_VIDEO
+    editVideo : (id) => {
+      if(id) {
+        return `/videos/${id}/edit`
+      } else {
+        return EDIT_VIDEO;
+      }
+    },
+    deleteVideo : (id) => {
+      if(id) {
+        return `/videos/${id}/delete`;
+      } else {
+        return DELETE_VIDEO;
+      }
+    }
   };
   
   export default routes; // 객체를 어디서든지 사용할 수 있도록 도와줍니다. 

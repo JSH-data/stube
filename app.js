@@ -11,6 +11,7 @@ import routes from "./routes";
 import { localMiddleware } from "./middleWares";
 
 
+
 const app = express();
 
 /*const PORT = 4000;
@@ -23,17 +24,18 @@ const handelListening = () =>
 //const handleProfile = (req,res) => res.send("You are in my profile"); // javascript의 arrow function
 
 
-app.use(helmet()); // middleware는 몇개든지 만들 수 있음
+app.use(helmet({contentSecurityPolicy: false})); // middleware는 몇개든지 만들 수 있음
 app.set("view engine", "pug"); // set의 View engine 기능을 사용
-app.use("/uploads", express.static("uploads")) // 누군가 /upload를 사용할 때 upload로 file을 전달해주는 미들웨어 업로드시 URL깨짐현상 막아주기위함
+app.use("/uploads", express.static("uploads")); // 누군가 /upload를 사용할 때 upload로 file을 전달해주는 미들웨어 업로드시 URL깨짐현상 막아주기위함
+app.use("/static", express.static("static")); // static 디렉토리에 있는 css, JS같은 정적 파일을 로드할 수 있도록 도와줍니다. 
 app.use(cookieParser());
 app.use(bodyParser.json()); // bodyaparser는 사용자가 웹사이트로 전달하는 정보들을 검사하는 미들웨어이다. request 정보에서 form이나 json형태로 된 body를 검사한다. 
 app.use(bodyParser.urlencoded({extended : true})); //서버가 유저로부터 받은 데이터를 이해하는 방법 bodypaser 덕분에 아이디 비번을 join에서 기록가능
 app.use(morgan("dev")); // middleware를 모든 루트에 적용시킵니다. 
 app.use(localMiddleware);
-app.use(function(req, res, next) {
+/*app.use(function(req, res, next) {
     res.setHeader("Content-Security-Policy", "script-src 'self' https://archive.org");
-    return next();}); // 시발 이것때문에 동영상 재생이 안된다는건디 이걸 내가 어떻게하면 알 수 있을까?
+    return next();});*/ // 시발 이것때문에 동영상 재생이 안된다는건디 이걸 내가 어떻게하면 알 수 있을까?
 
 
 app.use(routes.home, globalRouter); // 각 루트들의 뿌리로 
